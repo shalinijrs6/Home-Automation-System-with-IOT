@@ -1,18 +1,18 @@
 # Home-Automation-System-with-IOT
 
 # AIM: 
-  To make a Lamp at home (230 V AC) On / Off using ESP8266, IFTT Google Assistance and Blynk IoT mobile application.          
+To make a Lamp at home (230 V AC) On / Off using ESP8266, IFTT Google Assistance and Blynk IoT mobile application.          
            
 # COMPONENTS REQUIRED:
-PC with Internet connection
-Micro USB cable
-Wifi connection for ESP8266 (Use any mobile hotspot or Router)
-	ESP8266 Board
-	Mobile Phone with Blynk App installed
-            IFTT for Google Voice Assistance
-	9 W Bulb and Relay control
-Arduino software 
-Jumper Wires
+- PC with Internet connection
+- Micro USB cable
+- Wifi connection for ESP8266 (Use any mobile hotspot or Router)
+- ESP8266 Board
+- Mobile Phone with Blynk App installed
+- IFTT for Google Voice Assistance
+- 9 W Bulb and Relay control
+- Arduino software 
+- Jumper Wires
 
 ## Theory: 
 Blynk is an IoT platform for iOS or Android smartphones that is used to control Arduino, Raspberry Pi and NodeMCU via the Internet. This application is used to create a graphical interface or human machine interface (HMI) by compiling and providing the appropriate address on the available widgets.In this experiment we use ESP8266 to control a 220-volt lamp from a web server. But you can also use the same procedure to control fans, lights, AC, or other electrical devices that you want to control remotely.
@@ -22,36 +22,64 @@ When we apply an active high signal to the signal pin of the relay module from a
 
 # PROCEDURE:
 
-•	Make the circuit connection as per the diagram. In the mobile, download and “Blynq IoT” application using Google play store and Install it. Create log in ID and Password.
-•	Connect the IN pin of the Relay module to D1 pin of NodeMCU (ESP8266).
-•	Connect VCC of the Relay of NodeMCU. Connect GND of the Relay to GND of NodeMCU. 
-•	Connect your AC bulb to the Relay’s switch terminal securely.
-•	Install ESP8266 board in Arduino IDE via Board Manager. Select board: NodeMCU 1.0 (ESP-12E Module).
-•	Include necessary libraries: ESP8266WiFi and ESP8266WebServer.
-•	In the code, configure Wi-Fi SSID and Password.
-•	Set up a web server that responds to /on and /off URLs.
-•	Upload the code to the ESP8266 using a micro USB cable.
-•	Get Local IP Address After uploading, open Serial Monitor to find the local IP address of ESP8266.
-•	Create Applets on IFTTT - For "This", select Google Assistant → "Say a simple phrase". Command: "Turn on the light". For "That", choose Webhooks → "Make a web request". 
-•	Repeat to create another applet for command with URL.
-•	Test the System - Google Assistant triggers IFTTT → sends Webhook to ESP8266 → turns ON the relay (light).
-•	Say "Turn off the ligh to switch it OFF, Say "Turn on the light" to switch it ON.
+-	Make the circuit connection as per the diagram. In the mobile, download and “Blynq IoT” application using Google play store and Install it. Create log in ID and Password.
+-	Connect the IN pin of the Relay module to D1 pin of NodeMCU (ESP8266).
+-	Connect VCC of the Relay of NodeMCU. Connect GND of the Relay to GND of NodeMCU. 
+-	Connect your AC bulb to the Relay’s switch terminal securely.
+-	Install ESP8266 board in Arduino IDE via Board Manager. Select board: NodeMCU 1.0 (ESP-12E Module).
+-	Include necessary libraries: ESP8266WiFi and ESP8266WebServer.
+-	In the code, configure Wi-Fi SSID and Password.
+-	Set up a web server that responds to /on and /off URLs.
+-	Upload the code to the ESP8266 using a micro USB cable.
+-	Get Local IP Address After uploading, open Serial Monitor to find the local IP address of ESP8266.
+-	Create Applets on IFTTT - For "This", select Google Assistant → "Say a simple phrase". Command: "Turn on the light". For "That", choose Webhooks → "Make a web request". 
+-	Repeat to create another applet for command with URL.
+-	Test the System - Google Assistant triggers IFTTT → sends Webhook to ESP8266 → turns ON the relay (light).
+-	Say "Turn off the ligh to switch it OFF, Say "Turn on the light" to switch it ON.
 
 # CIRCUIT DIAGRAM:
 
 <img width="663" height="400" alt="image" src="https://github.com/user-attachments/assets/bfebc70d-25b4-4b4a-a7e1-2a02c09bf423" />
 
 
- 
 # PROGRAM:
-
+```
+#define BLYNK_PRINT Serial
+/* Fill-in your Template ID (only if using Blynk.Cloud) */
+//#define BLYNK_TEMPLATE_ID   "YourTemplateID"
+#define BLYNK_TEMPLATE_ID "TMPL3KJXHJQJl"
+#define BLYNK_TEMPLATE_NAME "homeautomation"
+#define BLYNK_AUTH_TOKEN "i04tjmB3P94UGixnWX4eehmIEjAeyodb"
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+// You should get Auth Token in the Blynk App.
+// Go to the Project Settings (nut icon).
+char auth[] = BLYNK_AUTH_TOKEN;
+// Your WiFi credentials.
+// Set password to "" for open networks.
+char ssid[] = "xxxxxxxx";
+char pass[] = "xxxx";
+void setup()
+{
+  // Debug console
+  Serial.begin(9600);
+  Blynk.begin(auth, ssid, pass);
+  // You can also specify server:
+  //Blynk.begin(auth, ssid, pass, "blynk-cloud.com", 80);
+  //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8080);
+}
+void loop()
+{
+  Blynk.run();
+}
+```
 
  
 # Output:
 
-
+<img width="758" height="408" alt="image" src="https://github.com/user-attachments/assets/7d8b0a3d-5665-44da-a9d0-d018acb56570" />
 
 ## Result:
 
-
+Thus the 230V bulb at home is remotely controlled by the Google voice assistance.
 
